@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const { userAuth } = require("./middlewares/auth.js");
 const cors = require("cors");
+require("dotenv").config();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -28,7 +29,7 @@ app.use("/", userRouter);
 connectDB()
   .then(() => {
     console.log("Database coneect successfully");
-    app.listen(7777, () => {
+    app.listen(process.env.PORT, () => {
       console.log("App islistening on port 7777");
     });
   })
