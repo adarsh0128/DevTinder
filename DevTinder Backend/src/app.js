@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const { userAuth } = require("./middlewares/auth.js");
 const cors = require("cors");
+const http = require("http");
 require("dotenv").config();
 
 app.use(express.json());
@@ -21,17 +22,22 @@ const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
 const paymentRouter = require("./routes/payment");
+const initializeSocket = require("./utils/socket");
+const chatRouter = require("./routes/chat");
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
 app.use("/", paymentRouter);
+app.use("/", chatRouter);
+const server = http.createServer(app);
+initializeSocket(server);
 
 connectDB()
   .then(() => {
     console.log("Database coneect successfully");
-    app.listen(process.env.PORT, () => {
+    server.listen(process.env.PORT, () => {
       console.log("App islistening on port 7777");
     });
   })
