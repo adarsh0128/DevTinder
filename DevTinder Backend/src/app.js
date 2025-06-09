@@ -24,6 +24,8 @@ const userRouter = require("./routes/user");
 const paymentRouter = require("./routes/payment");
 const initializeSocket = require("./utils/socket");
 const chatRouter = require("./routes/chat");
+const mailRoute = require("./routes/mailRoute.js");
+const airouter = require("./routes/openai ");
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
@@ -31,6 +33,8 @@ app.use("/", requestRouter);
 app.use("/", userRouter);
 app.use("/", paymentRouter);
 app.use("/", chatRouter);
+app.use("/", mailRoute);
+app.use("/", airouter);
 const server = http.createServer(app);
 initializeSocket(server);
 
